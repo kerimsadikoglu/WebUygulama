@@ -17,7 +17,20 @@ namespace WebUygulamaProje1.Controllers
         {
             List<KitapTuru> objKitapTuruList = _uygulamaDBContext.KitapTurleri.ToList();
 
+            return View(objKitapTuruList);
+        }
+        public IActionResult Ekle()
+        {  
+
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Ekle(KitapTuru kitapTuru)
+        {
+            _uygulamaDBContext.KitapTurleri.Add(kitapTuru);
+            _uygulamaDBContext.SaveChanges();
+            return RedirectToAction("Index", "KitapTuru");
         }
     }
 }

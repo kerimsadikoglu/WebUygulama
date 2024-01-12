@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "8w22CLOg/xnXXUZSZL4ahdLAILAnSCsiYz7MWpRkAhI=",
+  "Hash": "dJFLss6sUHRIal7UqFuZqp0/u3l/u0I691wSJV5p9X0=",
   "Source": "WebUygulamaProje1",
   "BasePath": "_content/WebUygulamaProje1",
   "Mode": "Default",
@@ -100,23 +100,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\site.js"
-    },
-    {
-      "Identity": "C:\\Users\\kerim.KERIMPC\\source\\repos\\githubWebUygulama\\WebUygulama\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
-      "SourceId": "WebUygulamaProje1",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\kerim.KERIMPC\\source\\repos\\githubWebUygulama\\WebUygulama\\wwwroot\\",
-      "BasePath": "_content/WebUygulamaProje1",
-      "RelativePath": "lib/bootstrap/dist/css/bootstrap.css",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css"
     },
     {
       "Identity": "C:\\Users\\kerim.KERIMPC\\source\\repos\\githubWebUygulama\\WebUygulama\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",

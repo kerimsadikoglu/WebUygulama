@@ -1,1 +1,42 @@
-﻿<h1>Kitap Turu Sayfasi</h1>
+﻿@model List<KitapTuru>
+            
+<div class="container">
+
+    <div class="row pt-3 pb-4">
+        <div>
+            <h1>Kitap Turleri</h1>
+        </div>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    Id
+                </th>
+                <th>
+                    Kitap Turu
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var kitapTuru in Model)
+            {
+            <tr>
+                    <td>@kitapTuru.ID</td>
+                    <td>@kitapTuru.Ad</td>
+            </tr>
+            }
+        </tbody>
+    
+    </table>
+
+    <div class="rpw pt-3 pb-2">
+        <div>
+            <a asp-contoller="KitapTuru" asp-action="Ekle" class="btn btn-lg btn-primary" type="button">
+                Yeni Kitap Türü Oluştur
+            </a>
+        </div>
+    </div>
+
+
+</div>
