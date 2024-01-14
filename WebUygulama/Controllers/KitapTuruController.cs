@@ -1,100 +1,105 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Data;
 using WebUygulamaProje1.Models;
 using WebUygulamaProje1.Utility;
 
 namespace WebUygulamaProje1.Controllers
 {
+    
     public class KitapTuruController : Controller
     {
+        private readonly IKitapTuruRepository _kitapTuruRepository;
 
-        private readonly IKitapTuruRepository _kitapTuruReposity;
-
-        public KitapTuruController (IKitapTuruRepository context)
+        public KitapTuruController(IKitapTuruRepository context)
         {
-            _kitapTuruReposity = context;
+			_kitapTuruRepository = context;
         }
+
         public IActionResult Index()
         {
-            List<KitapTuru> objKitapTuruList = _kitapTuruReposity.GetAll().ToList();
-
+            List<KitapTuru> objKitapTuruList = _kitapTuruRepository.GetAll().ToList();
             return View(objKitapTuruList);
         }
-        public IActionResult Ekle()
-        {  
 
+       
+        public IActionResult Ekle()
+        {
             return View();
         }
 
+       
         [HttpPost]
-        public IActionResult Ekle(KitapTuru kitapTuru)
-        {
-            if(ModelState.IsValid)
+		public IActionResult Ekle(KitapTuru kitapTuru)
+		{
+			if (ModelState.IsValid)
             {
-                _kitapTuruReposity.Ekle(kitapTuru);
-                _kitapTuruReposity.Kaydet();
-                TempData["basarili"] = "Yeni Kitap Turu Başarıyla Oluşturuldu!";
+                _kitapTuruRepository.Ekle(kitapTuru);
+				_kitapTuruRepository.Kaydet(); // SaveChanges() yapmazsanız bilgiler veri tabanına eklenmez!
+				TempData["basarili"] = "Yeni Kitap Türü başarıyla oluşturuldu!";
                 return RedirectToAction("Index", "KitapTuru");
             }
-            return View();
-            
-        }
+            return View();                                 
+		}
 
-        public IActionResult Guncelle(int? id)
-        {
-            if(id== null || id==0)
+
+
+		public IActionResult Guncelle(int? id)
+		{
+            if(id==null || id==0)
             {
                 return NotFound();
             }
-            KitapTuru? kitapTuruVt = _kitapTuruReposity.Get(u=>u.ID==id);
-            if(kitapTuruVt == null) 
-            { 
+            KitapTuru? kitapTuruVt = _kitapTuruRepository.Get(u=>u.ID==id);  // Expression<Func<T, bool>> filtre
+			if (kitapTuruVt==null)
+            {
                 return NotFound(); 
             }
-            return View(kitapTuruVt);
-        }
+			return View(kitapTuruVt);
+		}
 
-        [HttpPost]
-        public IActionResult Guncelle(KitapTuru kitapTuru)
-        {
-            if (ModelState.IsValid)
-            {
-                _kitapTuruReposity.Guncelle(kitapTuru);
-                _kitapTuruReposity.Kaydet();
-                TempData["basarili"] = "Kitap Turu Başarıyla Guncellendi!";
-                return RedirectToAction("Index", "KitapTuru");
-            }
-            return View();
-
-        }
-
-        public IActionResult Sil(int? id)
-        {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
-            KitapTuru? kitapTuruVt = _kitapTuruReposity.Get(u => u.ID == id);
-            if (kitapTuruVt == null)
-            {
-                return NotFound();
-            }
-            return View(kitapTuruVt);
-        }
-
-        [HttpPost, ActionName("Sil")]
-        public IActionResult SilPOST(int? id)
-        {
-            KitapTuru? kitapTuru = _kitapTuruReposity.Get(u => u.ID == id);
-            if (kitapTuru == null)
-            {
-                return NotFound();
-            }
-            _kitapTuruReposity.Sil(kitapTuru);
-            _kitapTuruReposity.Kaydet();
-            TempData["basarili"] = "Kitap Silme İşlemi Başarılı!";
-            return RedirectToAction("Index", "KitapTuru");
+		[HttpPost]
+		public IActionResult Guncelle(KitapTuru kitapTuru)
+		{
+			if (ModelState.IsValid)
+			{
+				_kitapTuruRepository.Guncelle(kitapTuru);
+				_kitapTuruRepository.Kaydet(); // SaveChanges() yapmazsanız bilgiler veri tabanına eklenmez!
+				TempData["basarili"] = "Yeni Kitap Türü başarıyla güncellendi!";
+				return RedirectToAction("Index", "KitapTuru");
+			}
+			return View();
+		}
 
 
-        }
-    }
+		// GET ACTION
+		public IActionResult Sil(int? id)
+		{
+			if (id == null || id == 0)
+			{
+				return NotFound();
+			}
+			KitapTuru? kitapTuruVt = _kitapTuruRepository.Get(u => u.ID == id);
+			if (kitapTuruVt == null)
+			{
+				return NotFound();
+			}
+			return View(kitapTuruVt);
+		}
+
+
+		[HttpPost, ActionName("Sil")]
+		public IActionResult SilPOST(int? id)		
+		{
+			KitapTuru? kitapTuru = _kitapTuruRepository.Get(u => u.ID == id);
+			if (kitapTuru == null)
+			{
+				return NotFound();
+			}
+			_kitapTuruRepository.Sil(kitapTuru);
+			_kitapTuruRepository.Kaydet();
+			TempData["basarili"] = "Kayıt Silme işlemi başarılı!";
+			return RedirectToAction("Index", "KitapTuru");
+		}
+	}
 }

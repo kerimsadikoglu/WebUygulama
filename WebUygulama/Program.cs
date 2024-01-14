@@ -11,6 +11,7 @@ builder.Services.AddDbContext<UygulamaDBContext>(options =>
       options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IKitapTuruRepository, KitapTuruRepository>();
+builder.Services.AddScoped<IKitapRepository, KitapRepository>();
 
 var app = builder.Build();
 
