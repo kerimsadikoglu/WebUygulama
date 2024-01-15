@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using WebUygulamaProje1.Models;
@@ -11,15 +12,17 @@ namespace WebUygulamaProje1.Controllers
 
         private readonly IKitapRepository _kitapRepository;
         private readonly IKitapTuruRepository _kitapTuruRepository;
+        public readonly IWebHostEnvironment _webHostEnvironment;
 
-        public KitapController (IKitapRepository kitapRepository, IKitapTuruRepository kitapTuruRepository)
+        public KitapController(IKitapRepository kitapRepository, IKitapTuruRepository kitapTuruRepository, IWebHostEnvironment webHostEnvironment)
         {
             _kitapRepository = kitapRepository;
             _kitapTuruRepository = kitapTuruRepository;
+            _webHostEnvironment = webHostEnvironment;
         }
         public IActionResult Index()
         {
-            List<Kitap> objKitapList = _kitapRepository.GetAll().ToList();
+            List<Kitap> objKitapList = _kitapRepository.GetAll(includeProps:"KitapTuru").ToList();
             
 
             return View(objKitapList);
@@ -53,17 +56,39 @@ namespace WebUygulamaProje1.Controllers
 
         [HttpPost]
         public IActionResult EkleGuncelle(Kitap kitap, IFormFile? file)
-        {
-            if(ModelState.IsValid)
-            {
-                _kitapRepository.Ekle(kitap);
-                _kitapRepository.Kaydet();
-                TempData["basarili"] = "Yeni Kitap Başarıyla Oluşturuldu!";
+		{
+			var errors = ModelState.Values.SelectMany(v => v.Errors);
+
+			if (ModelState.IsValid)
+			{
+				string wwwRootPath = _webHostEnvironment.WebRootPath;
+				string kitapPath = Path.Combine(wwwRootPath, @"img");
+
+				if (file != null)
+				{
+					using (var fileStream = new FileStream(Path.Combine(kitapPath, file.FileName), FileMode.Create))
+					{
+						file.CopyTo(fileStream);
+					}
+					kitap.ResimUrl = @"\img\" + file.FileName;
+				}				
+								
+				if (kitap.Id == 0)
+				{
+					_kitapRepository.Ekle(kitap);
+					TempData["basarili"] = "Yeni Kitap başarıyla oluşturuldu!";
+				}
+				else
+				{
+					_kitapRepository.Guncelle(kitap);
+					TempData["basarili"] = "Kitap güncelleme başarılı!";
+				}
+				
+				_kitapRepository.Kaydet(); // SaveChanges() yapmazsanız bilgiler veri tabanına eklenmez!			
                 return RedirectToAction("Index", "Kitap");
             }
-            return View();
-            
-        }
+            return View();                                 
+		}
 
         
         /*

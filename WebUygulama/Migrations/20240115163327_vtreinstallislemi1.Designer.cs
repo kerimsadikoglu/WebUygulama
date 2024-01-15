@@ -11,8 +11,8 @@ using WebUygulamaProje1.Utility;
 namespace WebUygulamaProje1.Migrations
 {
     [DbContext(typeof(UygulamaDBContext))]
-    [Migration("20240114122433_ForeignKeyEkle")]
-    partial class ForeignKeyEkle
+    [Migration("20240115163327_vtreinstallislemi1")]
+    partial class vtreinstallislemi1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,6 +41,10 @@ namespace WebUygulamaProje1.Migrations
 
                     b.Property<int>("KitapTuruId")
                         .HasColumnType("int");
+
+                    b.Property<string>("ResimUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Tanim")
                         .IsRequired()

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "dJFLss6sUHRIal7UqFuZqp0/u3l/u0I691wSJV5p9X0=",
+  "Hash": "ubNmG25/kv66bY5syXPFhaqaeo7rc3hEEZxyTuJluPs=",
   "Source": "WebUygulamaProje1",
   "BasePath": "_content/WebUygulamaProje1",
   "Mode": "Default",
@@ -83,6 +83,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\kerim.KERIMPC\\source\\repos\\githubWebUygulama\\WebUygulama\\wwwroot\\img\\DedeKorkut.jpeg",
+      "SourceId": "WebUygulamaProje1",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\kerim.KERIMPC\\source\\repos\\githubWebUygulama\\WebUygulama\\wwwroot\\",
+      "BasePath": "_content/WebUygulamaProje1",
+      "RelativePath": "img/DedeKorkut.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\DedeKorkut.jpeg"
     },
     {
       "Identity": "C:\\Users\\kerim.KERIMPC\\source\\repos\\githubWebUygulama\\WebUygulama\\wwwroot\\js\\site.js",
