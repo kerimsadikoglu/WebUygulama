@@ -36,7 +36,7 @@ namespace WebUygulamaProje1.Controllers
                     Text = k.KitapAdi,
                     Value = k.Id.ToString()
                 });
-            ViewBag.KitapTuruList = KitapList;
+            ViewBag.KitapList = KitapList;
 
             if (id == null || id == 0)
             {
@@ -85,6 +85,15 @@ namespace WebUygulamaProje1.Controllers
 
         public IActionResult Sil(int? id)
         {
+
+            IEnumerable<SelectListItem> KitapList = _kitapRepository.GetAll()
+                .Select(k => new SelectListItem
+                {
+                    Text = k.KitapAdi,
+                    Value = k.Id.ToString()
+                });
+            ViewBag.KitapList = KitapList;
+
             if (id == null || id == 0)
             {
                 return NotFound();
